@@ -15,6 +15,10 @@
             cursor: pointer;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/2.3.8/js/dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.3.8/css/dataTables.dataTables.min.css">
+
 </head>
 
 <body>
@@ -503,8 +507,144 @@
         </tfoot>
     </table>
 
+<script>
+/*let clickElements = [];
+let elements = document.getElementsByTagName("tr");
+
+
+function refreshSelectionText(count){
+    let selectionText = document.getElementById("selection");
+    if(count > 1)
+        selectionText.innerText = count + " éléments sélectionnés";
+    else
+        selectionText.innerText = count + " élément sélectionné";
+}
+
+function changeStyle(element, backgroundColor, fontWeight, border){
+    if(backgroundColor !== null){
+        element.style.backgroundColor = backgroundColor;
+    }
+    if(fontWeight !== null){
+        element.style.fontWeight = fontWeight;
+    }
+    if(border !== null){
+        element.style.border = border;
+    }
+}
+
+
+
+for(let i = 0;i<elements.length;i++){
+    let element = elements[i];
+    element.addEventListener("click", function(event){
+        let target = this;
+        let targetIndex = clickElements.indexOf(target);
+        if(targetIndex === -1){
+            changeStyle(target, "ligthblue", "900", null);
+            clickElements.push(target);
+
+            refreshSelectionText(clickElements.length);
+            
+        }
+        else{
+            changeStyle(target, "white", "500", null);
+            
+            clickElements.splice(targetIndex,1);
+
+             refreshSelectionText(clickElements.length);
+        }
+    });
+
+    element.addEventListener("mouseover", function () {
+        changeStyle(this, null, null, "");
+    });
+
+    element.addEventListener("mouseout", function () {
+        changeStyle(this, null, null, "");
+    });
+
+}*/
+
+/*function refreshSelectionText(count){
+        if(count > 1)
+            $("#selection").text(count + " éléments sélectionnés");
+        else 
+            $("#selection").text(count + " élément sélectionné");        
+    }
+        
+    function changeStyle(element, backgroundColor, fontWeight, border){
+        if(backgroundColor!== null){
+            $(element).css("background-color", backgroundColor);
+        }
+        if(fontWeight !== null){
+            $(element).css("font-weight", fontWeight);
+        }
+        if(border !== null){
+            $(element).css("border", border);
+        }
+    }
+
+    function onRowClick(){
+        let target = this;
+        let targetIndex = clickElements.indexOf(target);
+        if(targetIndex === -1){
+            changeStyle(target, "lightblue", "900", null);
+            clickElements.push(target);
+            refreshSelectionText(clickElements.length);
+        }
+        else{
+            changeStyle(target, "white", "500", null);
+            clickElements.splice(targetIndex,1);
+            refreshSelectionText(clickElements.length);
+        }
+    }
+
+    function onRowMouseOver(){
+        changeStyle(this, null, null, "1px solid #888");
+    }
+                
+    function onRowMouseOut(){
+        changeStyle(this, null, null, "");
+    }  
+
+
+    let clickElements = [];
+     
+    $("tr")
+    .on("click", onRowClick)
+    .on("mouseover", onRowMouseOver)
+    .on("mouseout", onRowMouseOut);*/
+
+
+    function refreshSelectionText(count){
+    if(count > 1)
+        $("#selection").text(count+" éléments sélectionnés");
+    else 
+        $("#selection").text(count+" élément sélectionné");  
+}
+
+let table = $('table').DataTable({
+    "language": {
+        "lengthMenu": "Affichage de _MENU_ enregistrements par page",
+        "zeroRecords": "Rien trouvé… Désolé! ",
+        "info": "Affichage de la page _PAGE_ de _PAGES_",
+        "infoEmpty": "Aucun enregistrement disponible ",
+        "infoFiltered": "(filtré à partir d’un maximum de _MAX_ enregistrement)" ,
+        "search":"Recherche: "
+    }
+});
+
+$('table tbody').on( 'click', 'tr',  function () {
+    $(this).toggleClass('selected');
+    refreshSelectionText(table.rows('.selected').data().length);
+} );
+
+
+
+</script>
 
 
 </body>
+
 
 </html>
